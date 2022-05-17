@@ -12,7 +12,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 // import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+// import AdbIcon from '@mui/icons-material/Adb';
 import logo from "./assets/ecell_logo.png";
 import LandingPage from './components/landing_page';
 
@@ -42,7 +42,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static" style={{ background: '#340C64' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-        <img alt='rocket' src={logo} height={50}></img>
+          {/* <img alt='rocket' src={logo} height={50}></img> */}
           <Typography
             variant="h6"
             noWrap
