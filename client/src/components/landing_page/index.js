@@ -7,7 +7,7 @@ export default  function LandingPpage(){
     return(
        <div className="landing-page row" style={{marginRight:0}}>
            <div className="column_our col-md-6" style={{padding:40}}>
-               <div style={{display:"inline-flex",float:"left"}}>
+               <div style={{display:"inline-flex",float:"left"}} className="startup">
                     <h1 className="font_style_1">START</h1>
                     <h1 className="font_style_1" style={{color:"#13EEAC"}}>UP</h1>
                </div>

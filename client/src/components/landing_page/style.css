@@ -7,10 +7,12 @@
     /* height: 300px; */
 }
 .rocket-image{
-     /* width: 100%;
+     width: 100%;
   max-width: 300px;
-  height: auto;height: 200px; */
-  height: 200px;
+  height: auto;
+  /* height: 200px; */
+  /* height: 30vw;*/
+  padding-top: 10%; 
 }
 .coloumn_our{
     margin: 0px;
@@ -24,8 +26,8 @@
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 700;
-font-size: 140px;
-line-height: 128px;
+font-size: 10vw;
+line-height: 10vw;
 /* or 91% */
 
 
@@ -38,4 +40,7 @@ text-shadow: 0px 4px 4px #FFFFFF, 0px 4px 4px rgba(254, 253, 253, 0.25);
     font-family: 'poppins';
     font-style: normal;
     text-align: left;
+}
+.startup{
+    padding-right:50% ;
 }
