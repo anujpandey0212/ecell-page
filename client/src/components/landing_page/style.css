@@ -6,14 +6,16 @@
     margin-right: 0px;
     /* height: 300px; */
 }
+
 .rocket-image{
-     width: 100%;
-  max-width: 300px;
-  height: auto;
-  /* height: 200px; */
-  /* height: 30vw;*/
-  padding-top: 10%; 
+         
+     height: 30vw;
 }
+.four-images{
+    height: 13vw;
+}
+
+
 .coloumn_our{
     margin: 0px;
 }
@@ -40,7 +42,31 @@ text-shadow: 0px 4px 4px #FFFFFF, 0px 4px 4px rgba(254, 253, 253, 0.25);
     font-family: 'poppins';
     font-style: normal;
     text-align: left;
+    font-size: 2vw;
 }
+.ideas_first_line{
+        margin-bottom: 0PX;
+    margin-top: 10%;
+}
+#start_button{
+    margin-top: 3%;
+    float: left;
+    background-color: #13EEAC;
+}
+
 .startup{
-    padding-right:50% ;
+    padding-right: 35%;
+}
+
+@media only screen and (max-width: 500px) {
+ .rocket-image{
+     width: 100%;
+     max-width: 300px;
+     height: auto;     
+     
+}
+.four-images {
+    height: 22vw;
+    margin: 10%;
+}
 }
