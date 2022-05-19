@@ -19,7 +19,7 @@ export default  function LandingPpage(){
                 <h1 className="font_style_1">FAIR</h1>
                 <p className="font_style_2 ideas_first_line">IT'S NOT ABOUT THE IDEAS.</p>
                 <p className="font_style_2">IT'S ABOUT MAKING IDEAS HAPPEN.</p>
-               <button id="start_button" type="button" class="btn btn-primary">Primary</button>
+               <button id="start_button" type="button" class="btn btn-primary">Start</button>
            </div>
            <div className="column_our col-md-6">
                 <img alt="vision" src={vision} className="four-images"></img>
