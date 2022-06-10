@@ -11,3 +11,13 @@ body {
 img{
   pointer-events: none;
 }
+
+ul{
+  
+  list-style-type: "circle",
+}
+
+.MuiMenu-paper{
+  background-color: #2D0F5B !important;
+  color: white !important;
+}

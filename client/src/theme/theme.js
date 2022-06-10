@@ -1,5 +1,8 @@
 import { createTheme, touchRippleClasses } from "@mui/material";
 import { textAlign } from "@mui/system";
+import { createBreakpoints } from "@mui/system";
+
+const breakpoints = createBreakpoints({});
 
 const theme = createTheme({
   palette: {
@@ -12,6 +15,39 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: ["Raleway", "Montserrat", "Poppins"].join(","),
+    h2: {
+      color: "white",
+      fontFamily: "Poppins",
+      [breakpoints.down("md")]: {
+        textAlign: "center",
+      },
+      [breakpoints.down("sm")]: {
+        fontSize: "1rem",
+        textAlign: "center",
+      },
+    },
+    h1: {
+      fontFamily: "Poppins",
+    },
+    variants: [
+      {
+        props: { variant: "h2left" },
+        style: {
+          color: "white",
+          textAlign: "center",
+          color: "white",
+          fontFamily: "Poppins",
+
+          [breakpoints.down("md")]: {
+            textAlign: "left",
+          },
+          [breakpoints.down("sm")]: {
+            fontSize: "1rem",
+            textAlign: "left",
+          },
+        },
+      },
+    ],
   },
   components: {
     MuiButtonBase: {

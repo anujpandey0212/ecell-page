@@ -19,16 +19,6 @@ export default function LandingPpage() {
   const matcheslg = useMediaQuery(theme.breakpoints.up("md"));
   const matchessm = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // for the subtext
-  theme.typography.h2 = {
-    [theme.breakpoints.down("md")]: {
-      textAlign: "center",
-    },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "1rem",
-      textAlign: "center",
-    },
-  };
   // for the STARTUP FRONT text
   theme.typography.h1 = {
     fontSize: "7rem",

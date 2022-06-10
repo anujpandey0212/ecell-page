@@ -9,60 +9,70 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import Logo from "../../assets/ecell_logo.png";
+import LogoFont from "../../assets/Ecell_written_logo.png";
 
 const pages = ["Startup", "Investors", "Registers", "Sponsors", "Contact Us"];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  // const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   return (
-    <AppBar position="absolute" style={{ background: "#340C64" }} elevation={0}>
+    <AppBar
+      position="absolute"
+      style={{ background: "transparent" }}
+      elevation={0}
+    >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            flexDirection: {
+              xs: "row-reverse",
+              md: "row",
+            },
+            justifyContent: "space-between",
+          }}
+        >
           {/**Logo for bigger displays */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
+          <Box
+            component="img"
             sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "Poppins",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              height: "7rem",
+              display: { md: "block", xs: "none" },
+              pt: "1rem",
             }}
-          >
-            LOGO
-          </Typography>
+            alt="Logo"
+            src={Logo}
+          />
+          <Box
+            component="img"
+            sx={{
+              height: "3rem",
+              display: { md: "block", xs: "none" },
+              pt: "1rem",
+              pl: 2,
+            }}
+            alt="ECELL IIT Hyderabad"
+            src={LogoFont}
+          />
 
           {/**Menu for smaller displays */}
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Box
+            sx={{
+              display: { xs: "flex", md: "none" },
+            }}
+          >
+            {/*This is for mobile menu */}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -89,27 +99,34 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))}
             </Menu>
+            {/* Hamburger Menu Icon Button */}
+            <IconButton
+              size="large"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+              sx={{
+                flexGrow: 1,
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
           </Box>
-          {/**Logo for smaller displays */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
+          <Box
+            component="img"
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "Poppins",
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              height: "5rem",
+              display: { md: "none", xs: "block" },
+              pt: "1rem",
+            }}
+            src={Logo}
+          />
+          <Box
+            sx={{
+              flex: 1,
+              display: { xs: "none", md: "flex" },
+              justifyContent: "flex-end",
             }}
           >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -120,6 +137,8 @@ const ResponsiveAppBar = () => {
                   display: "block",
                   fontFamily: "Poppins",
                   fontWeight: 400,
+                  fontSize: "1.1rem",
+                  mx: 1,
                 }}
               >
                 {page}
