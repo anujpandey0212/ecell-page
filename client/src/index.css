@@ -16,3 +16,8 @@ img{
   background-color: #2D0F5B !important;
   color: white !important;
 }
+
+::selection {
+  color: #2D0F5B;
+  background:#13EEAC;
+}

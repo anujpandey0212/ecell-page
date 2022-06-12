@@ -89,12 +89,6 @@ const theme = createTheme({
             "&:hover": {
               backgroundColor: "#2D0F5B",
             },
-            [breakpoints.down("sm")]: {
-              fontSize: "1rem",
-            },
-            [breakpoints.down("md")]: {
-              fontSize: "1.3rem",
-            },
           },
         },
       ],

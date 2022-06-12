@@ -1,7 +1,6 @@
 import React from "react";
 import bg from "../../assets/bg_try1.jpg";
 import { Grid, Typography, Button, Box } from "@mui/material";
-import { css } from "@emotion/react";
 import SendIcon from "@mui/icons-material/ArrowForwardIos";
 import { styled } from "@mui/material/styles";
 import Rocket from "../../assets/shuttle-icon.svg";
@@ -29,10 +28,18 @@ const IconButton = (props) => {
     >
       <Button
         variant="purple"
-        sx={{ my: { md: 6, sm: 5, xs: 2 }, gap: "10px" }}
+        sx={{
+          my: { md: 6, sm: 5, xs: 2 },
+          gap: "10px",
+          fontSize: { md: "1.6rem", sm: "1.3rem", xs: "0.7rem" },
+        }}
       >
         {props.text}
-        <Box component="img" src={props.icon} sx={{ width: "2rem" }} />
+        <Box
+          component="img"
+          src={props.icon}
+          sx={{ width: { md: "2rem", xs: "1.5rem" } }}
+        />
       </Button>
     </Box>
   );
@@ -42,7 +49,13 @@ const TakePart = () => {
   return (
     <BgContainer>
       <Grid container>
-        <Grid item container xs={12} md={7} sx={{ p: { md: "3rem" } }}>
+        <Grid
+          item
+          container
+          xs={12}
+          md={7}
+          sx={{ p: { md: "3rem", xs: "1rem" } }}
+        >
           <Typography
             variant="h2left"
             sx={{
@@ -50,8 +63,10 @@ const TakePart = () => {
               fontSize: { md: "4rem", sm: "3rem", xs: "1.3rem" },
               color: "black",
               fontWeight: 600,
-              pt: { md: 6, xs: 3 },
-              pl: { md: 6, xs: 3 },
+              pt: { md: 6, xs: 6 },
+              pl: { md: 6, xs: 6 },
+              pr: { md: 0, xs: 6 },
+              pb: { md: 0, xs: 3 },
             }}
           >
             BECOME PART OF THE <Span>STARTUP FAIR!</Span>
@@ -95,8 +110,7 @@ const TakePart = () => {
           src={bg}
           sx={{
             height: { xs: "100%", md: "auto" },
-            backgroundSize: "cover",
-            width: { xs: "auto", md: 1 },
+            backgroundSize: "auto",
             position: "absolute",
             top: 0,
             zIndex: -1,
