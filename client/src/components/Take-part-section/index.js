@@ -95,6 +95,7 @@ const TakePart = () => {
           src={bg}
           sx={{
             height: { xs: "100%", md: "auto" },
+            backgroundSize: "cover",
             width: { xs: "auto", md: 1 },
             position: "absolute",
             top: 0,

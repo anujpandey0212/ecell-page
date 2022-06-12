@@ -92,6 +92,9 @@ const theme = createTheme({
             [breakpoints.down("sm")]: {
               fontSize: "1rem",
             },
+            [breakpoints.down("md")]: {
+              fontSize: "1.3rem",
+            },
           },
         },
       ],
