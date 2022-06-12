@@ -13,7 +13,9 @@ const WhatIsSection = () => {
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
   theme.typography.h1 = {
-    fontSize: "7rem",
+    fontSize: "6rem",
+    fontFamily: "Poppins",
+    fontWeight: 600,
     [theme.breakpoints.down("md")]: {
       fontSize: "5rem",
       textAlign: "center",

@@ -9,12 +9,7 @@ body {
 }
 
 img{
-  pointer-events: none;
-}
-
-ul{
-  
-  list-style-type: "circle",
+  pointer-events: none ;
 }
 
 .MuiMenu-paper{

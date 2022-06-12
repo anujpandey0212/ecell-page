@@ -6,6 +6,7 @@ import WhatIsSection from "./components/what-is-section";
 import InformationSection from "./components/Information-section";
 import lineRocket from "./assets/line-rocket.png";
 import lineMen from "./assets/businessmen.png";
+import TakePart from "./components/Take-part-section";
 
 const startupList = [
   "Promotions on social media, newspapers, online blogs etc.",
@@ -40,6 +41,7 @@ function App() {
         image={lineMen}
         items={investorsList}
       />
+      <TakePart />
     </div>
   );
 }

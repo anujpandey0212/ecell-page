@@ -33,6 +33,7 @@ const InformationSection = (props) => {
     fontSize: "3rem",
     color: "white",
     fontWeight: 300,
+    fontFamily: "Poppins",
     [theme.breakpoints.down("md")]: {
       fontSize: "4rem",
 
