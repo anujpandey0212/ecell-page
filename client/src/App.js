@@ -7,6 +7,8 @@ import InformationSection from "./components/Information-section";
 import lineRocket from "./assets/line-rocket.png";
 import lineMen from "./assets/businessmen.png";
 import TakePart from "./components/Take-part-section";
+import Carousel from "./components/Carousel/Carousel";
+import Footer from "./components/Footer/Footer";
 
 const startupList = [
   "Promotions on social media, newspapers, online blogs etc.",
@@ -42,6 +44,8 @@ function App() {
         items={investorsList}
       />
       <TakePart />
+      <Carousel />
+      <Footer />
     </div>
   );
 }
