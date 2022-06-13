@@ -10,6 +10,9 @@ const BgContainer = styled("section")(
   ({ theme }) => `
   position: relative;
   overflow: hidden;
+  background: url(${bg});
+  background-attachment: fixed;
+  background-size: cover;
 `
 );
 
@@ -105,18 +108,6 @@ const TakePart = () => {
           <IconButton text="start-up" icon={Rocket} />
           <IconButton text="Investor" icon={Investor} />
         </Grid>
-        <Box
-          component="img"
-          src={bg}
-          sx={{
-            height: { xs: "100%", md: "auto" },
-            backgroundSize: "auto",
-            position: "absolute",
-            top: 0,
-            zIndex: -1,
-            position: "fixed",
-          }}
-        />
       </Grid>
     </BgContainer>
   );

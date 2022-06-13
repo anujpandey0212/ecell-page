@@ -1,6 +1,6 @@
 .carousel {
   background-color: #2d0f5b;
-  height: 80vh;
+  height: 40rem;
 }
 input[type="radio"] {
   display: none;
@@ -16,7 +16,7 @@ input[type="radio"] {
 .sponsors-card {
   position: absolute;
   width: 20%;
-  height: 70%;
+  height: clamp(8rem, 15rem, 16rem);
   left: 0;
   right: 0;
   margin: auto;
@@ -96,9 +96,5 @@ input[type="radio"] {
     margin: auto;
     transition: transform 0.4s ease;
     cursor: pointer;
-  }
-
-  .carousel {
-    height: 60vh;
   }
 }
