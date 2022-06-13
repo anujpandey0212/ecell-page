@@ -5,6 +5,7 @@ import SendIcon from "@mui/icons-material/ArrowForwardIos";
 import { styled } from "@mui/material/styles";
 import Rocket from "../../assets/shuttle-icon.svg";
 import Investor from "../../assets/investor-icon.png";
+import { forwardRef } from "react";
 
 const BgContainer = styled("section")(
   ({ theme }) => `
@@ -48,9 +49,9 @@ const IconButton = (props) => {
   );
 };
 
-const TakePart = () => {
+const TakePart = forwardRef((props, ref) => {
   return (
-    <BgContainer>
+    <BgContainer ref={ref}>
       <Grid container>
         <Grid
           item
@@ -111,6 +112,6 @@ const TakePart = () => {
       </Grid>
     </BgContainer>
   );
-};
+});
 
 export default TakePart;

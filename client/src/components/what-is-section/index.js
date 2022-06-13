@@ -4,11 +4,13 @@ import { useTheme } from "@emotion/react";
 import { useMediaQuery } from "@mui/material";
 import Div from "../Div";
 import Span from "../Span";
+import { forwardRef } from "react";
+import { useRef } from "react";
 
 import questionMark from "../../assets/ques.png";
 import arrow from "../../assets/Arrow.png";
 
-const WhatIsSection = () => {
+const WhatIsSection = forwardRef((props, ref) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -27,7 +29,7 @@ const WhatIsSection = () => {
   };
 
   return (
-    <Div>
+    <Div ref={ref}>
       <Grid container>
         <Grid
           item
@@ -91,6 +93,6 @@ const WhatIsSection = () => {
       </Container>
     </Div>
   );
-};
+});
 
 export default WhatIsSection;

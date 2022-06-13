@@ -1,5 +1,6 @@
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { forwardRef } from "react";
 // import { faFacebook } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
@@ -10,9 +11,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import logo from "../../assets/E-Cell logo footer.png";
 
-function Footer() {
+const Footer = forwardRef((props, ref) => {
   return (
-    <section className="footer">
+    <section className="footer" ref={ref}>
       <div>
         <img className="footer-logo" src={logo} alt="" />
       </div>
@@ -38,6 +39,6 @@ function Footer() {
       </div>
     </section>
   );
-}
+});
 
 export default Footer;

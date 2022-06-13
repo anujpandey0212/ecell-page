@@ -1,13 +1,13 @@
 "use strict";
-
+import { forwardRef } from "react";
 import "./Carousel.css";
 import tesla from "../../assets/tesla.png";
 import spacex from "../../assets/spacex.png";
 import netflix from "../../assets/netflix.png";
 
-function Carousel() {
+const Carousel = forwardRef((props, ref) => {
   return (
-    <div className="carousel">
+    <div className="carousel" ref={ref}>
       <div className="sponsors-container">
         <p className="heading">SPONSORS</p>
         <input type="radio" name="slider" id="item-1" defaultChecked />
@@ -27,6 +27,6 @@ function Carousel() {
       </div>
     </div>
   );
-}
+});
 
 export default Carousel;

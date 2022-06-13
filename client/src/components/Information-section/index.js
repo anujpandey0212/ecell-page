@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import Div from "../Div";
 import Span from "../Span";
 import {
@@ -41,7 +41,7 @@ const Li = styled("li")(({ theme }) => ({
   fontSize: "1.5rem",
 }));
 
-const InformationSection = (props) => {
+const InformationSection = forwardRef((props, ref) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
@@ -62,7 +62,7 @@ const InformationSection = (props) => {
   };
 
   return (
-    <Div>
+    <Div ref={ref}>
       <Grid container>
         <Grid item container md={5} sm={12} justifyContent="center">
           <Typography
@@ -118,6 +118,6 @@ const InformationSection = (props) => {
       </Grid>
     </Div>
   );
-};
+});
 
 export default InformationSection;

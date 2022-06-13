@@ -14,7 +14,7 @@ import LogoFont from "../../assets/Ecell_written_logo.png";
 
 const pages = ["Startup", "Investors", "Registers", "Sponsors", "Contact Us"];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -92,7 +92,14 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page}
+                  onClick={() => {
+                    props.MenuItemClickHandler(page);
+                    console.log(page);
+                    handleCloseNavMenu();
+                  }}
+                >
                   <Typography textAlign="center" sx={{ fontFamily: "Poppins" }}>
                     {page}
                   </Typography>
@@ -130,7 +137,10 @@ const ResponsiveAppBar = () => {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() => {
+                  props.MenuItemClickHandler(page);
+                  handleCloseNavMenu();
+                }}
                 sx={{
                   my: 2,
                   color: "white",
