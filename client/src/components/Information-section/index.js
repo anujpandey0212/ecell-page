@@ -9,15 +9,32 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import { useTheme } from "@emotion/react";
+import { useTheme } from "@mui/material/styles";
 
-const Ul = styled("ul")(({ theme }) => ({
-  color: "white",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  fontWeight: 300,
-}));
+const Ul = styled("ul")(
+  ({ theme }) => `
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center;
+fontWeight:300;
+
+@media only screen and (min-width: 1150px){
+  &:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: ${theme.palette.secondary.main};
+    height: 100%;
+    width: 3px;
+    transform: translateX(-30px)
+  }
+}
+
+
+`
+);
 
 const Li = styled("li")(({ theme }) => ({
   color: "white",
@@ -28,7 +45,6 @@ const InformationSection = (props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
-
   theme.typography.h3 = {
     fontSize: "3rem",
     color: "white",
