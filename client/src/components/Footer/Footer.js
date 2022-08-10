@@ -1,6 +1,6 @@
 import "./Footer.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 // import { faFacebook } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
