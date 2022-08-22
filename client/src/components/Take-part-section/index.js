@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import Rocket from "../../assets/shuttle-icon.svg";
 import Investor from "../../assets/investor-icon.png";
 import { forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 const BgContainer = styled("section")(
   ({ theme }) => `
@@ -31,6 +32,7 @@ const IconButton = (props) => {
       }}
     >
       <Button
+        href={props.link}
         variant="purple"
         sx={{
           my: { md: 6, sm: 5, xs: 2 },
@@ -50,6 +52,7 @@ const IconButton = (props) => {
 };
 
 const TakePart = forwardRef((props, ref) => {
+  const navigate = useNavigate();
   return (
     <BgContainer ref={ref}>
       <Grid container>
@@ -106,8 +109,8 @@ const TakePart = forwardRef((props, ref) => {
           justifyContent={"center"}
           alignItems="center"
         >
-          <IconButton text="start-up" icon={Rocket} />
-          <IconButton text="Investor" icon={Investor} />
+          <IconButton text="start-up" link={"/start-up-form"} icon={Rocket} />
+          <IconButton text="Investor" link={"./VC-form"} icon={Investor} />
         </Grid>
       </Grid>
     </BgContainer>

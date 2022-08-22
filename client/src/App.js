@@ -1,84 +1,20 @@
 import "./App.css";
 import * as React from "react";
-import ResponsiveAppBar from "./components/ResponsiveAppBar/index";
-import LandingPage from "./components/landing_page";
-import WhatIsSection from "./components/what-is-section";
-import InformationSection from "./components/Information-section";
-import lineRocket from "./assets/line-rocket.png";
-import lineMen from "./assets/businessmen.png";
-import TakePart from "./components/Take-part-section";
-import Carousel from "./components/Carousel/Carousel";
-import Footer from "./components/Footer/Footer";
-import { useRef } from "react";
-
-const startupList = [
-  "Promotions on social media, newspapers, online blogs etc.",
-  "Display stalls for the startup in The Startup Fair event, to be held in IIT Hyderabad campus.",
-  "Opportunities to interact with experienced professionals from different fields like venture capitalists, consultancy firms, banks etc.",
-  "Sponsorship collaboration opportunities with E-Cell IIT Hyderabad for extra promotion and other benefits.",
-  "Other negotiable deliverables.",
-];
-const investorsList = [
-  "Opportunities to interact with all the startups.",
-  "Promotions on social media, newspapers, online blogs etc.",
-  "Invest in the startup of your own choice, with no upper limit of collaboration.",
-  "3 Free passes for the E-Summit event that include KeyNote talk sessions and Powertalks on entrepreneurship by professionals from across the globe and a variety of companies.",
-  "Other negotiable deliverables.",
-];
+import Homepage from "./components/Homepage";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import Form1 from "./components/StartupForm/Form";
+import Form2 from "./components/VCForm/Form";
 
 function App() {
-  function scrollToSection(page) {
-    console.log(page);
-    switch (page) {
-      case "Investors":
-        ref_investor_section.current.scrollIntoView();
-        break;
-      case "Startup":
-        ref_startup_section.current.scrollIntoView();
-        break;
-      case "Registers":
-        ref_take_part_section.current.scrollIntoView();
-        break;
-      case "Sponsors":
-        ref_carousel_section.current.scrollIntoView();
-        break;
-      case "Contact Us":
-        ref_footer_section.current.scrollIntoView();
-        break;
-    }
-  }
-  const ref_startup_section = useRef();
-  const ref_investor_section = useRef();
-  const ref_take_part_section = useRef();
-  const ref_carousel_section = useRef();
-  const ref_footer_section = useRef();
-
   return (
     <div className="App">
-      <ResponsiveAppBar
-        MenuItemClickHandler={(page) => {
-          scrollToSection(page);
-        }}
-      />
-      <LandingPage />
-      <WhatIsSection />
-      <InformationSection
-        titlep1="START"
-        titlep2="UP"
-        image={lineRocket}
-        items={startupList}
-        ref={ref_startup_section}
-      />
-      <InformationSection
-        titlep1="INVEST"
-        titlep2="ORS"
-        image={lineMen}
-        items={investorsList}
-        ref={ref_investor_section}
-      />
-      <TakePart ref={ref_take_part_section} />
-      <Carousel ref={ref_carousel_section} />
-      <Footer ref={ref_footer_section} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/Start-up-form" element={<Form1 />} />
+          <Route path="/VC-form" element={<Form2 />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
