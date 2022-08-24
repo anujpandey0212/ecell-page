@@ -1,6 +1,6 @@
 import { Button, Box, Container, Modal, Typography } from "@mui/material";
 import React from "react";
-import Header from "./Header";
+import Header from "../formComponents/Header";
 import Purpose from "./Purpose";
 import Contact from "./Contact";
 import Email from "./Email";
@@ -11,7 +11,7 @@ import Ideas from "./Ideas";
 import Info from "./Info";
 import Links from "./Links";
 import Name from "./Name";
-import Navbar from "./Navbar";
+import Navbar from "../formComponents/Navbar";
 
 const Form = () => {
   const styles = {

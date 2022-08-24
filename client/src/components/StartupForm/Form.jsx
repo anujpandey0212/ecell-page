@@ -1,19 +1,63 @@
 import { Button, Box, Container, Modal, Typography } from "@mui/material";
 import React from "react";
-import FounderName from "./FounderName";
+
 import Header from "./Header";
-import IndustryName from "./IndustryName";
-import StartupName from "./StartupName";
-import Email from "./Email";
-import Contact from "./Contact";
-import StartUpPhase from "./StartUpPhase";
-import Discription from "./Discription";
-import Location from "./Location";
-import Hire from "./Hire";
-import Help from "./Help";
-import Links from "./Links";
-import Hear from "./Hear";
+
 import Navbar from "./Navbar";
+import SimpleInput from "../formComponents/SimpleInput";
+
+const fields = {
+  startUpName: {
+    title: "Name of Startup",
+  },
+  industryName: {
+    title:
+      "Industry / Sector of your Startup ( fintech, healthcare, ed-tech, etc.)",
+  },
+  location: {
+    title: "Location",
+  },
+  founderName: {
+    title: "Name of Founder/Representative of Start-up",
+    subtitle: "Enter the name of any one person from your Startup",
+  },
+  email: {
+    title: "Email ID",
+    subtitle: "E-mail ID of the person mentioned above.",
+    type: "email",
+  },
+  contact: {
+    title: "Contact Number",
+    type: "number",
+  },
+  startUpPhase: {
+    title: "Start-up Phase",
+    options: [
+      "Currently in ideation",
+      "Has been ideated thoroughly",
+      "Prototype is in the making",
+      "Prototype has been released",
+      "Has received funding in the past",
+    ],
+    otherOption: true,
+  },
+  discription: {
+    title: "Elaborate Description of the Startup",
+  },
+  hire: {
+    title:
+      "Will you be interested in hiring students of IIT Hyderabad for internsip/placements.",
+  },
+  help: {
+    title: "What kind of help do you expect from E-cell IIT Hyderabad?",
+  },
+  links: {
+    title: "Websit / LinkedIn / Social Media links",
+  },
+  hear: {
+    title: "How did you ear about this event?",
+  },
+};
 
 const Form = () => {
   const styles = {
@@ -73,69 +117,19 @@ const Form = () => {
               }}
             >
               <Header styles={styles} />
-              <StartupName
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-
-              <IndustryName
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Location
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <FounderName
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Email
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Contact
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <StartUpPhase
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-                setFormValues={setFormValues}
-              />
-              <Discription
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Hire
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Help
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Links
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-              <Hear
-                styles={styles}
-                formValues={formValues}
-                onClickHandler={onClickHandler}
-              />
-
+              {Object.keys(fields).map((field) => (
+                <SimpleInput
+                  value={field}
+                  title={fields[field].title}
+                  formValue={formValues[`${field}`]}
+                  subtitle={fields[field].subtitle}
+                  options={fields[field].options}
+                  otherOption={fields[field].otherOption}
+                  onClickHandler={onClickHandler}
+                  setFormValues={setFormValues}
+                  formValues={formValues}
+                />
+              ))}
               <Button
                 variant="contained"
                 type="submit"

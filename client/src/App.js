@@ -2,8 +2,9 @@ import "./App.css";
 import * as React from "react";
 import Homepage from "./components/Homepage";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import Form1 from "./components/StartupForm/Form";
+import Form1 from "./components/formComponents/StartupForm";
 import Form2 from "./components/VCForm/Form";
+import Form3 from "./components/formComponents/VCForm";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/Start-up-form" element={<Form1 />} />
           <Route path="/VC-form" element={<Form2 />} />
+          <Route path="/test" element={<Form3 />} />
         </Routes>
       </Router>
     </div>
