@@ -26,7 +26,7 @@ const Header = () => {
             fontSize: { xs: "1.5rem", sm: "2rem" },
           }}
         >
-          University E-Cell Summit 2022
+          IIT Hyderabad E-Cell Summit 2022
         </Typography>
 
         <Typography

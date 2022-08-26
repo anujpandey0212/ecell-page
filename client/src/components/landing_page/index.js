@@ -15,6 +15,7 @@ import { Box } from "@mui/system";
 
 export default function LandingPpage() {
   const theme = useTheme();
+  const matchesxl = useMediaQuery(theme.breakpoints.up("lg"));
   const matchesmd = useMediaQuery(theme.breakpoints.up("sm"));
   const matcheslg = useMediaQuery(theme.breakpoints.up("md"));
   const matchessm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -114,7 +115,9 @@ export default function LandingPpage() {
               filter:
                 useMediaQuery(theme.breakpoints.down("md")) &&
                 "brightness(75%)",
-              height: matcheslg
+              height: matchesxl
+                ? "60vh"
+                : matcheslg
                 ? "31.25rem"
                 : matchesmd
                 ? "21.25rem"

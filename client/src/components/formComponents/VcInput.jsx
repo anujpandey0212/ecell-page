@@ -9,6 +9,7 @@ import {
   Checkbox,
 } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
 
 const VcInput = ({
   title,
@@ -19,41 +20,65 @@ const VcInput = ({
   subtitle = "",
   options,
   otherOption,
-  formValues,
-  setFormValues,
-  onAddToArray,
-  submit,
+  setForm,
 }) => {
   const [other, setOther] = React.useState(true);
-  const [otherText, setOtherText] = React.useState("");
+  const [otherText, setOtherText] = React.useState('');
+  const [optionsCheck, setOptionsCheck] = React.useState({options:[], name: null, otherOptions:''});
+
   const onClickOther = (e) => {
     if (e.target.checked == true) {
       setOther(false);
+    } else {
+      setOtherText(true);
     }
   };
+  useEffect(()=>{
+    setForm(optionsCheck)
+    console.log(optionsCheck)
+  },[optionsCheck])
+
+  useEffect(()=>{
+    function addOption(){
+      console.log(otherText)
+      setOptionsCheck(state=>{
+        let updated = {...state,
+          otherOptions:otherText,
+        }
+        
+        return updated
+      })
+    }
+    let refresh = setTimeout(()=>{
+      addOption()
+      console.log(optionsCheck)
+    },3000)
+    
+    return ()=>{
+      clearTimeout(refresh,()=>{
+        addOption()
+        console.log(optionsCheck)
+      })
+    }
+
+  },[otherText])
 
   const onTextHandler = (e) => {
-    setOtherText(e.target.value);
-    console.log(otherText);
-    {
-      submit ? onAddToArray(optionsCheck, otherText) : console.log(submit);
-    }
+    // setOtherText({other: e.target.value, name: e.target.name});
+    setOtherText(e.target.value)
+    console.log(e.target.name);
   };
-  const [optionsCheck, setOptionsCheck] = React.useState([]);
+
   const onClickHandlerOptions = (e) => {
-    if (e.target.checked == true) {
-      setOptionsCheck((state) => [...state, e.target.value]);
+    if (e.target.checked) {
+      setOptionsCheck((state) => ({options:[...state.options,e.target.value],name:e.target.name}));
     } else {
       setOptionsCheck((state) => {
         let arr = [];
         arr = state.filter((opt) => opt !== e.target.value);
-        return arr;
+        return {options:arr, name:e.target.name};
       });
     }
-    setFormValues({
-      ...formValues,
-      [e.target.name]: optionsCheck,
-    });
   };
 
   return (
@@ -98,7 +123,7 @@ const VcInput = ({
 
           {options ? (
             <FormControl>
-              <RadioGroup aria-labelledby="demo-radio-buttons-group-label">
+              <RadioGroup aria-labelledby="radio-buttons-group-label">
                 {console.log(formValue)}
                 {options.map((el) => (
                   <FormControlLabel
@@ -147,7 +172,7 @@ const VcInput = ({
                   disabled={other}
                   label="Your Answer"
                   name={value}
-                  value={other ? "" : otherText}
+                  value={otherText}
                   onChange={onTextHandler}
                 />
               ) : (

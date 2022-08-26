@@ -4,6 +4,7 @@ import Header from "./Header";
 import Navbar from "./Navbar";
 import { VcFields } from "./data";
 import VcInput from "./VcInput";
+import DisplayModal from "./DisplayModal";
 
 const Form = () => {
   const styles = {
@@ -25,6 +26,16 @@ const Form = () => {
   };
 
   const [formValues, setFormValues] = React.useState(defaultvalues);
+  const [open, setOpen] = React.useState(false);
+
+  const setForm = (optionsCheck)=>{
+    setFormValues(state=>({
+      ...state,
+      [optionsCheck.name]: {options: optionsCheck.options, otherOption: optionsCheck.otherOptions},
+      
+    }));
+
+  }
   const onClickHandler = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -35,16 +46,8 @@ const Form = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(formValues);
-    handleOpen();
-    setSubmit(true);
+    setOpen(true);
   };
-  const addToArray = (arr, el) => {
-    arr.push(el);
-    setFormValues({ ...formValues, purpose: arr });
-  };
-  const [submit, setSubmit] = React.useState(false);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   return (
     <>
       <Navbar />
@@ -67,8 +70,9 @@ const Form = () => {
               }}
             >
               <Header styles={styles} />
-              {Object.keys(VcFields).map((field) => (
+              {Object.keys(VcFields).map((field,index) => (
                 <VcInput
+                  key={[field,index]}
                   value={field}
                   title={VcFields[field].title}
                   formValue={formValues[`${field}`]}
@@ -76,10 +80,8 @@ const Form = () => {
                   options={VcFields[field].options}
                   otherOption={VcFields[field].otherOption}
                   onClickHandler={onClickHandler}
-                  setFormValues={setFormValues}
+                  setForm={setForm}
                   formValues={formValues}
-                  onAddToArray={addToArray}
-                  submit={submit}
                 />
               ))}
               <Button
@@ -96,15 +98,12 @@ const Form = () => {
                   },
                 }}
               >
-                submit
+                Submit
               </Button>
             </Box>
           </form>
         </Container>
-        {/* <DisplayModal open={open} /> */}
-        {Object.keys(formValues).map((el) => (
-          <h1>{formValues[el]}</h1>
-        ))}
+        <DisplayModal open={open}/>
       </Box>
     </>
   );

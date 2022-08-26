@@ -5,8 +5,6 @@ import { useMediaQuery } from "@mui/material";
 import Div from "../Div";
 import Span from "../Span";
 import { forwardRef } from "react";
-import { useRef } from "react";
-
 import questionMark from "../../assets/ques.png";
 import arrow from "../../assets/Arrow.png";
 

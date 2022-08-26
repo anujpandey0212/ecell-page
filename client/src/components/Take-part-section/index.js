@@ -23,6 +23,7 @@ const Span = styled("span")`
 `;
 
 const IconButton = (props) => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -32,10 +33,14 @@ const IconButton = (props) => {
       }}
     >
       <Button
-        href={props.link}
+        // href={props.link}
+        onClick={() => {
+          navigate(props.link);
+        }}
         variant="purple"
         sx={{
-          my: { md: 6, sm: 5, xs: 2 },
+          mt: { md: 6, sm: 5, xs: 2 },
+          mb: props.bottomMargin ? { sm: 10, xs: 4 } : 0,
           gap: "10px",
           fontSize: { md: "1.6rem", sm: "1.3rem", xs: "0.7rem" },
         }}
@@ -110,7 +115,12 @@ const TakePart = forwardRef((props, ref) => {
           alignItems="center"
         >
           <IconButton text="start-up" link={"/start-up-form"} icon={Rocket} />
-          <IconButton text="Investor" link={"./VC-form"} icon={Investor} />
+          <IconButton
+            text="Investor"
+            link={"/VC-form"}
+            icon={Investor}
+            bottomMargin={true}
+          />
         </Grid>
       </Grid>
     </BgContainer>

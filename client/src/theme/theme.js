@@ -1,5 +1,4 @@
 import { createTheme, touchRippleClasses } from "@mui/material";
-import { textAlign } from "@mui/system";
 import { createBreakpoints } from "@mui/system";
 
 const breakpoints = createBreakpoints({});

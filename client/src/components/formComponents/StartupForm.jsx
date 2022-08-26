@@ -6,23 +6,32 @@ import SimpleInput from "./StartUpInput";
 import DisplayModal from "./DisplayModal";
 import { startUpFields } from "./data";
 
+const defaultvalues = {
+  startUpName: "",
+  industryName: "",
+  location: "",
+  founderName: "",
+  email: "",
+  contact: "",
+  startUpPhase: "",
+  discription: "",
+  hire: "",
+  help: "",
+  links: "",
+  hear: "",
+};
 const Form = () => {
-  const defaultvalues = {
-    startUpName: "",
-    industryName: "",
-    location: "",
-    founderName: "",
-    email: "",
-    contact: "",
-    startUpPhase: "",
-    discription: "",
-    hire: "",
-    help: "",
-    links: "",
-    hear: "",
-  };
 
   const [formValues, setFormValues] = React.useState(defaultvalues);
+  const [open, setOpen] = React.useState(false);
+
+  const setForm = (optionsCheck)=>{
+    setFormValues(state=>({
+      ...state,
+      [optionsCheck.name]: {options: optionsCheck.options, otherOption: optionsCheck.otherOptions},
+      
+    }));
+  }
   const onClickHandler = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -33,10 +42,8 @@ const Form = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(formValues);
-    handleOpen();
+    setOpen(true)
   };
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
   return (
     <>
       <Navbar />
@@ -66,8 +73,9 @@ const Form = () => {
               }}
             >
               <Header />
-              {Object.keys(startUpFields).map((field) => (
+              {Object.keys(startUpFields).map((field,index) => (
                 <SimpleInput
+                  key={[index,index]}
                   value={field}
                   title={startUpFields[field].title}
                   formValue={formValues[`${field}`]}
@@ -75,7 +83,7 @@ const Form = () => {
                   options={startUpFields[field].options}
                   otherOption={startUpFields[field].otherOption}
                   onClickHandler={onClickHandler}
-                  setFormValues={setFormValues}
+                  setForm={setForm}
                   formValues={formValues}
                 />
               ))}
@@ -93,7 +101,7 @@ const Form = () => {
                   },
                 }}
               >
-                submit
+                Submit
               </Button>
             </Box>
           </form>

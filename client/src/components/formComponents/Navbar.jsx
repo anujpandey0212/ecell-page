@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import logo from "../../assets/E-Cell logo footer.png";
+import { Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+
 
 function DrawerAppBar() {
   return (
@@ -23,7 +26,7 @@ function DrawerAppBar() {
               fontSize: "1.3rem",
             }}
           >
-            <a href="/">BACK</a>
+            <Link to="/" sx={{color: 'white', '&:hover':{color: 'white'}}} underline='none' component={RouterLink}>BACK</Link>
           </Typography>
           <Box sx={{ margin: ".2rem 0" }}>
             <img src={logo} width="70px" />

@@ -44,7 +44,7 @@ const startUpFields = {
     title: "What kind of help do you expect from E-cell IIT Hyderabad?",
   },
   links: {
-    title: "Websit / LinkedIn / Social Media links",
+    title: "Website / LinkedIn / Social Media links",
   },
   hear: {
     title: "How did you ear about this event?",
@@ -121,7 +121,7 @@ const VcFields = {
       "You can mention about your industry connections, ongoing projects, current startup investment portfolio, or any other similar information here.",
   },
   links: {
-    title: "Websit / LinkedIn / Social Media links",
+    title: "Website  / LinkedIn / Social Media links",
   },
 };
 

@@ -9,6 +9,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import React from "react";
+import { useEffect } from "react";
 
 const StartUpInput = ({
   title,
@@ -19,31 +20,65 @@ const StartUpInput = ({
   subtitle = "",
   options,
   otherOption,
-  formValues,
-  setFormValues,
+  setForm,
 }) => {
   const [other, setOther] = React.useState(true);
-  const onClickOther = () => {
-    setOther(false);
-    setFormValues({
-      ...formValues,
-      [value]: "",
-    });
+  const [otherText, setOtherText] = React.useState('');
+  const [optionsCheck, setOptionsCheck] = React.useState({options:[], name: null});
+
+  const onClickOther = (e) => {
+    if (e.target.checked == true) {
+      setOther(false);
+    } else {
+      setOtherText(true);
+    }
   };
-  const onClickHandlerOptions = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-    setOther(true);
-  };
+  useEffect(()=>{
+    setForm(optionsCheck)
+    console.log(optionsCheck)
+  },[optionsCheck])
+
+  useEffect(()=>{
+    function addOption(){
+      console.log(otherText)
+      setOptionsCheck(state=>{
+        let updated = {...state,
+          otherOptions:otherText,
+        }
+        
+        return updated
+      })
+    }
+    let refresh = setTimeout(()=>{
+      addOption()
+      console.log(optionsCheck)
+    },3000)
+    
+    return ()=>{
+      clearTimeout(refresh,()=>{
+        addOption()
+        console.log(optionsCheck)
+      })
+    }
+
+  },[otherText])
+
+
   const onTextHandler = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
+    function setText(){
+      if(other){
+        setOtherText(e.target.value)
+      } else {
+        setOtherText('');
+
+      }
+    }
+    let a = setTimeout(setText,3000);
+
+    return ()=>{
+      clearTimeout(a,3000)
+    }
+    
   };
 
   return (
@@ -89,10 +124,11 @@ const StartUpInput = ({
           {options ? (
             <FormControl>
               <RadioGroup aria-labelledby="demo-radio-buttons-group-label">
-                {options.map((el) => (
+                {options.map((el,index) => (
                   <FormControlLabel
+                    key={el}
                     value={el}
-                    onChange={onClickHandlerOptions}
+                    onChange={onClickHandler}
                     control={<Radio />}
                     label={
                       <Typography
@@ -109,7 +145,7 @@ const StartUpInput = ({
                 ))}
                 {otherOption ? (
                   <FormControlLabel
-                    value=""
+                    value={otherText}
                     control={<Radio />}
                     label={
                       <Typography
