@@ -15,7 +15,6 @@ const StartUpInput = ({
   title,
   value,
   type = "text",
-  formValue,
   onClickHandler,
   subtitle = "",
   options,
@@ -23,63 +22,30 @@ const StartUpInput = ({
   setForm,
 }) => {
   const [other, setOther] = React.useState(true);
-  const [otherText, setOtherText] = React.useState('');
-  const [optionsCheck, setOptionsCheck] = React.useState({options:[], name: null});
+  const [otherText, setOtherText] = React.useState("");
+  const [optionRadio, setOptionRadio] = React.useState();
+  const [textField, setTextField] = React.useState({ value: "", name: null });
 
-  const onClickOther = (e) => {
-    if (e.target.checked == true) {
+  const onChangeHandler = (e) => {
+    if (e.target.name === "other") {
       setOther(false);
+      setOptionRadio(e.target.value);
     } else {
-      setOtherText(true);
+      setOther(true);
+      setOptionRadio(e.target.value);
     }
   };
-  useEffect(()=>{
-    setForm(optionsCheck)
-    console.log(optionsCheck)
-  },[optionsCheck])
 
-  useEffect(()=>{
-    function addOption(){
-      console.log(otherText)
-      setOptionsCheck(state=>{
-        let updated = {...state,
-          otherOptions:otherText,
-        }
-        
-        return updated
-      })
+  useEffect(() => {
+    function task() {
+      setForm(textField);
     }
-    let refresh = setTimeout(()=>{
-      addOption()
-      console.log(optionsCheck)
-    },3000)
-    
-    return ()=>{
-      clearTimeout(refresh,()=>{
-        addOption()
-        console.log(optionsCheck)
-      })
-    }
+    let refresh = setTimeout(task, 1000);
 
-  },[otherText])
-
-
-  const onTextHandler = (e) => {
-    function setText(){
-      if(other){
-        setOtherText(e.target.value)
-      } else {
-        setOtherText('');
-
-      }
-    }
-    let a = setTimeout(setText,3000);
-
-    return ()=>{
-      clearTimeout(a,3000)
-    }
-    
-  };
+    return () => {
+      clearTimeout(refresh, task);
+    };
+  }, [textField]);
 
   return (
     <>
@@ -123,12 +89,17 @@ const StartUpInput = ({
 
           {options ? (
             <FormControl>
-              <RadioGroup aria-labelledby="demo-radio-buttons-group-label">
-                {options.map((el,index) => (
+              <RadioGroup
+                aria-labelledby="radio-buttons-group-label"
+                onChange={onChangeHandler}
+              >
+                {options.map((el) => (
+                  // The radio options if the input type is Radio type
                   <FormControlLabel
                     key={el}
                     value={el}
                     onChange={onClickHandler}
+                    name={value}
                     control={<Radio />}
                     label={
                       <Typography
@@ -140,13 +111,14 @@ const StartUpInput = ({
                         {el}
                       </Typography>
                     }
-                    name={value}
                   />
                 ))}
                 {otherOption ? (
+                  // this is the radio button used to enable the others option in radio options list
                   <FormControlLabel
-                    value={otherText}
+                    value=""
                     control={<Radio />}
+                    name={"other"}
                     label={
                       <Typography
                         sx={{
@@ -157,13 +129,13 @@ const StartUpInput = ({
                         Other
                       </Typography>
                     }
-                    onChange={onClickOther}
                   />
                 ) : (
                   ""
                 )}
               </RadioGroup>
               {otherOption ? (
+                // other options field if selected opens this text field
                 <TextField
                   sx={{
                     width: { xs: "100%" },
@@ -172,14 +144,21 @@ const StartUpInput = ({
                   disabled={other}
                   label="Your Answer"
                   name={value}
-                  value={other ? "" : formValue}
-                  onChange={onTextHandler}
+                  value={otherText?.value || ""}
+                  onChange={(e) => {
+                    setOtherText({
+                      value: e.target.value,
+                      name: e.target.name,
+                    });
+                    onClickHandler(e);
+                  }}
                 />
               ) : (
                 ""
               )}
             </FormControl>
           ) : (
+            // for text input
             <TextField
               sx={{
                 width: { xs: "100%" },
@@ -188,8 +167,10 @@ const StartUpInput = ({
               type={type}
               label="Your Answer"
               name={value}
-              value={formValue}
-              onChange={onClickHandler}
+              value={textField.value}
+              onChange={(e) => {
+                setTextField({ value: e.target.value, name: e.target.name });
+              }}
             />
           )}
         </Box>

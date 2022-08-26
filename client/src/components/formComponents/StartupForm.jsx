@@ -25,12 +25,10 @@ const Form = () => {
   const [formValues, setFormValues] = React.useState(defaultvalues);
   const [open, setOpen] = React.useState(false);
 
-  const setForm = (optionsCheck)=>{
-    setFormValues(state=>({
-      ...state,
-      [optionsCheck.name]: {options: optionsCheck.options, otherOption: optionsCheck.otherOptions},
-      
-    }));
+  const setForm = (input)=>{
+    if(input){
+        setFormValues(state => ({...state, [input.name]: input.value}))
+    }
   }
   const onClickHandler = (e) => {
     const { name, value } = e.target;
