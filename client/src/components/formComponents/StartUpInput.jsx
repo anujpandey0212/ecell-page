@@ -20,7 +20,6 @@ const StartUpInput = ({
   options,
   otherOption,
   setForm,
-  formErrors,
 }) => {
   const [other, setOther] = React.useState(true);
   const [otherText, setOtherText] = React.useState("");
@@ -41,7 +40,7 @@ const StartUpInput = ({
     function task() {
       setForm(textField);
     }
-    let refresh = setTimeout(task, 500);
+    let refresh = setTimeout(task, 1000);
 
     return () => {
       clearTimeout(refresh, task);
@@ -137,65 +136,42 @@ const StartUpInput = ({
               </RadioGroup>
               {otherOption ? (
                 // other options field if selected opens this text field
-                <div>
-                  <TextField
-                    sx={{
-                      width: { xs: "100%" },
-                    }}
-                    id="outlined-textarea"
-                    disabled={other}
-                    label="Your Answer"
-                    name={value}
-                    value={otherText?.value || ""}
-                    onChange={(e) => {
-                      setOtherText({
-                        value: e.target.value,
-                        name: e.target.name,
-                      });
-                      onClickHandler(e);
-                    }}
-                  />
-                  <p
-                    style={{
-                      color: "red",
-                      fontSize: "1rem",
-                      marginTop: "1rem",
-                    }}
-                  >
-                    {formErrors[value]}
-                  </p>
-                </div>
+                <TextField
+                  sx={{
+                    width: { xs: "100%" },
+                  }}
+                  id="outlined-textarea"
+                  disabled={other}
+                  label="Your Answer"
+                  name={value}
+                  value={otherText?.value || ""}
+                  onChange={(e) => {
+                    setOtherText({
+                      value: e.target.value,
+                      name: e.target.name,
+                    });
+                    onClickHandler(e);
+                  }}
+                />
               ) : (
                 ""
               )}
             </FormControl>
           ) : (
             // for text input
-            <div>
-              <TextField
-                sx={{
-                  width: { xs: "100%" },
-                }}
-                id="outlined-textarea"
-                type={type}
-                label="Your Answer"
-                name={value}
-                value={textField.value}
-                onChange={(e) => {
-                  setTextField({ value: e.target.value, name: e.target.name });
-                }}
-                error={Boolean(formErrors[value])}
-              />
-              <p
-                style={{
-                  color: "red",
-                  fontSize: "1rem",
-                  marginTop: "1rem",
-                }}
-              >
-                {formErrors[value]}
-              </p>
-            </div>
+            <TextField
+              sx={{
+                width: { xs: "100%" },
+              }}
+              id="outlined-textarea"
+              type={type}
+              label="Your Answer"
+              name={value}
+              value={textField?.value || ""}
+              onChange={(e) => {
+                setTextField({ value: e.target.value, name: e.target.name });
+              }}
+            />
           )}
         </Box>
       </Paper>

@@ -10,14 +10,14 @@ import {
   Checkbox,
 } from "@mui/material";
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const VcInput = ({
   title,
   value,
   type = "text",
   formValue,
-  onClickHandler,
+  setTextInForm,
   subtitle = "",
   options,
   otherOption,
@@ -26,20 +26,48 @@ const VcInput = ({
 }) => {
   const [other, setOther] = React.useState(true);
   const [otherText, setOtherText] = React.useState("");
+  const [text, setText] = React.useState("");
   const [optionsCheck, setOptionsCheck] = React.useState({
     options: [],
     name: null,
     otherOptions: "",
   });
+  const otherRef = useRef();
 
   const onClickOther = (e) => {
     if (e.target.checked == true) {
-      setOther(false);
-    } else {
-      setOther(true);
-      setOtherText("");
+      return setOther(false);
     }
+    return setOther(true);
   };
+
+  const onTextChangeHandler = (e) => {
+    setText(e.target.value);
+    e.target.value = text;
+  };
+
+  useEffect(() => {
+    let refresh = setTimeout(() => {
+      setTextInForm(text, value);
+    }, 500);
+
+    return () => {
+      clearTimeout(refresh, () => {
+        setTextInForm(text, value);
+      });
+    };
+  }, [text]);
+  useEffect(() => {
+    if (other) {
+      setOptionsCheck((state) => ({ ...state, otherOptions: "" }));
+    } else {
+      setOptionsCheck((state) => ({
+        ...state,
+        otherOptions: otherText?.value,
+      }));
+    }
+  }, [other]);
+
   useEffect(() => {
     setForm(optionsCheck);
   }, [optionsCheck]);
@@ -47,8 +75,11 @@ const VcInput = ({
   useEffect(() => {
     function addOption() {
       setOptionsCheck((state) => {
-        let updated = { ...state, otherOptions: otherText };
-
+        let updated = {
+          ...state,
+          otherOptions: otherText?.value,
+          name: value,
+        };
         return updated;
       });
     }
@@ -63,30 +94,23 @@ const VcInput = ({
     };
   }, [otherText]);
 
-  const onTextHandler = (e) => {
-    setOtherText({
-      value: e.target.value,
-      name: e.target.name,
-    });
-    setForm(otherText);
-  };
-
-  const otherOptionsChecker = (e) => {
-    console.log(e.target.name);
-  };
-
   const onChangeHandlerOptions = (e) => {
+    console.log(e.target.value);
     if (e.target.checked) {
       setOptionsCheck((state) => ({
         options: [...state.options, e.target.value],
         name: e.target.name,
-        otherOptions: "",
+        otherOptions: otherText?.value,
       }));
     } else {
+      console.log("Need to redo this");
+      console.log(e.target.name);
+      console.log(optionsCheck);
       setOptionsCheck((state) => {
-        let arr = [];
-        arr = Array(state).filter((opt) => opt !== e.target.value);
-        return { options: arr, name: e.target.name, otherOptions: "" };
+        let update = { ...state };
+        let newOptions = update?.options.filter((el) => el !== e.target.value);
+        update.options = newOptions;
+        return update;
       });
     }
   };
@@ -133,10 +157,7 @@ const VcInput = ({
           <div>
             {options ? (
               <FormControl>
-                <RadioGroup
-                  aria-labelledby="radio-buttons-group-label"
-                  onChange={otherOptionsChecker}
-                >
+                <RadioGroup aria-labelledby="radio-buttons-group-label">
                   {/* For checkbox options */}
                   {options.map((el) => (
                     <FormControlLabel
@@ -159,7 +180,7 @@ const VcInput = ({
                   {/* for checkbox button for Other values */}
                   {otherOption ? (
                     <FormControlLabel
-                      value=""
+                      value={"other"}
                       control={<Checkbox />}
                       label={
                         <Typography
@@ -180,6 +201,7 @@ const VcInput = ({
                 </RadioGroup>
                 {otherOption ? (
                   <TextField
+                    ref={otherRef}
                     sx={{
                       width: { xs: "100%" },
                     }}
@@ -188,7 +210,12 @@ const VcInput = ({
                     label="Your Answer"
                     name={value}
                     value={otherText?.value || ""}
-                    onChange={onTextHandler}
+                    onChange={(e) => {
+                      setOtherText({
+                        value: e.target.value,
+                        name: e.target.name,
+                      });
+                    }}
                   />
                 ) : (
                   ""
@@ -203,8 +230,8 @@ const VcInput = ({
                 type={type}
                 label="Your Answer"
                 name={value}
-                value={formValue}
-                onChange={onClickHandler}
+                value={text}
+                onChange={onTextChangeHandler}
               />
             )}
             <p

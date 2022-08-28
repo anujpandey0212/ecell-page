@@ -31,21 +31,24 @@ const Form = () => {
   const [isSubmit, setIsSubmit] = React.useState(false);
 
   const setForm = (optionsCheck) => {
+    let optionObject = { ...optionsCheck };
+    const name = optionsCheck.name;
+    delete optionObject.name;
+
+    setFormValues((state) => {
+      let update = { ...state };
+      update[name] = optionObject;
+      return update;
+    });
+    console.log(formValues);
+  };
+  const setTextInForm = (text, name) => {
     setFormValues((state) => ({
       ...state,
-      [optionsCheck.name]: {
-        ...state[optionsCheck.name],
-        otherOption: optionsCheck.otherOptions,
-      },
+      [name]: text,
     }));
   };
-  const onClickHandler = (e) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     function submitForm() {
@@ -63,6 +66,7 @@ const Form = () => {
       console.log(formValues);
     }
   }, [formErrors]);
+
   const required = "Required*";
   const validate = (values) => {
     const errors = {};
@@ -114,9 +118,8 @@ const Form = () => {
                   subtitle={VcFields[field].subtitle}
                   options={VcFields[field].options}
                   otherOption={VcFields[field].otherOption}
-                  onClickHandler={onClickHandler}
+                  setTextInForm={setTextInForm}
                   setForm={setForm}
-                  formValues={formValues}
                   formErrors={formErrors}
                   type={VcFields.type}
                 />
