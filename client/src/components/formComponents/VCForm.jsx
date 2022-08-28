@@ -27,15 +27,18 @@ const Form = () => {
 
   const [formValues, setFormValues] = React.useState(defaultvalues);
   const [open, setOpen] = React.useState(false);
+  const [formErrors, setFormErrors] = React.useState({});
+  const [isSubmit, setIsSubmit] = React.useState(false);
 
-  const setForm = (optionsCheck)=>{
-    setFormValues(state=>({
+  const setForm = (optionsCheck) => {
+    setFormValues((state) => ({
       ...state,
-      [optionsCheck.name]: {options: optionsCheck.options, otherOption: optionsCheck.otherOptions},
-      
+      [optionsCheck.name]: {
+        ...state[optionsCheck.name],
+        otherOption: optionsCheck.otherOptions,
+      },
     }));
-
-  }
+  };
   const onClickHandler = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -45,8 +48,40 @@ const Form = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formValues);
-    setOpen(true);
+    function submitForm() {
+      setFormErrors(validate(formValues));
+      setIsSubmit(true);
+    }
+    let timeout = setTimeout(submitForm, 600);
+    return () => {
+      clearTimeout(timeout, 600);
+    };
+  };
+  React.useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit === true) {
+      console.log(formValues);
+    }
+  }, [formErrors]);
+  const required = "Required*";
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      errors.email = required;
+    } else if (!regex.test(values.email)) {
+      errors.email = "Not a valid Email format";
+    }
+    if (!values.purpose) {
+      errors.purpose = required;
+    }
+    if (!values.stage) {
+      errors.stage = required;
+    }
+    if (!values.domain) {
+      errors.domain = required;
+    }
+    return errors;
   };
   return (
     <>
@@ -70,18 +105,20 @@ const Form = () => {
               }}
             >
               <Header styles={styles} />
-              {Object.keys(VcFields).map((field,index) => (
+              {Object.keys(VcFields).map((field, index) => (
                 <VcInput
-                  key={[field,index]}
+                  key={[field, index]}
                   value={field}
                   title={VcFields[field].title}
-                  formValue={formValues[`${field}`]}
+                  formValue={formValues[field]}
                   subtitle={VcFields[field].subtitle}
                   options={VcFields[field].options}
                   otherOption={VcFields[field].otherOption}
                   onClickHandler={onClickHandler}
                   setForm={setForm}
                   formValues={formValues}
+                  formErrors={formErrors}
+                  type={VcFields.type}
                 />
               ))}
               <Button
@@ -103,7 +140,7 @@ const Form = () => {
             </Box>
           </form>
         </Container>
-        <DisplayModal open={open}/>
+        <DisplayModal open={open} />
       </Box>
     </>
   );

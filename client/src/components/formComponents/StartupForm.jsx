@@ -21,15 +21,16 @@ const defaultvalues = {
   hear: "",
 };
 const Form = () => {
-
   const [formValues, setFormValues] = React.useState(defaultvalues);
   const [open, setOpen] = React.useState(false);
+  const [formErrors, setFormErrors] = React.useState({});
+  const [isSubmit, setIsSubmit] = React.useState(false);
 
-  const setForm = (input)=>{
-    if(input){
-        setFormValues(state => ({...state, [input.name]: input.value}))
+  const setForm = (input) => {
+    if (input) {
+      setFormValues((state) => ({ ...state, [input.name]: input.value }));
     }
-  }
+  };
   const onClickHandler = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -39,8 +40,43 @@ const Form = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formValues);
-    setOpen(true)
+    function submitForm() {
+      console.log(formValues);
+      setFormErrors(validate(formValues));
+      setIsSubmit(true);
+    }
+
+    let timeout = setTimeout(submitForm, 600);
+    return () => {
+      clearTimeout(timeout, 600);
+    };
+  };
+  React.useEffect(() => {
+    console.log(formErrors);
+    if (Object.keys(formErrors).length === 0 && isSubmit === true) {
+      setOpen(true);
+    }
+  }, [formErrors]);
+  const required = "Required*";
+
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.founderName) {
+      errors.founderName = required;
+    }
+    if (!values.email) {
+      errors.email = required;
+    } else if (!regex.test(values.email)) {
+      errors.email = "Not a valid Email format";
+    }
+    if (!values.startUpPhase) {
+      errors.startUpPhase = required;
+    }
+    if (!values.help) {
+      errors.help = required;
+    }
+    return errors;
   };
   return (
     <>
@@ -71,9 +107,9 @@ const Form = () => {
               }}
             >
               <Header />
-              {Object.keys(startUpFields).map((field,index) => (
+              {Object.keys(startUpFields).map((field, index) => (
                 <SimpleInput
-                  key={[index,index]}
+                  key={[index, index]}
                   value={field}
                   title={startUpFields[field].title}
                   formValue={formValues[`${field}`]}
@@ -83,6 +119,8 @@ const Form = () => {
                   onClickHandler={onClickHandler}
                   setForm={setForm}
                   formValues={formValues}
+                  formErrors={formErrors}
+                  type={startUpFields.type}
                 />
               ))}
               <Button

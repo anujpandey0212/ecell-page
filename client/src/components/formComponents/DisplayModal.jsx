@@ -2,7 +2,6 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 const DisplayModal = (props) => {
   return (
     <Modal
@@ -16,7 +15,7 @@ const DisplayModal = (props) => {
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          width: { xs: 200, sm: 400, md: 600 },
+          width: { xs: 320, sm: 400, md: 600 },
           backgroundColor: "white",
           boxShadow: 24,
           p: 6,
@@ -34,7 +33,7 @@ const DisplayModal = (props) => {
             sx={{
               textTransform: "uppercase",
 
-              fontSize: { xs: "1.1rem", sm: "1.4rem" },
+              fontSize: { xs: "1rem", sm: "1.4rem" },
             }}
           >
             Registration Succesful
@@ -52,12 +51,14 @@ const DisplayModal = (props) => {
         </div>
         <Button
           variant="outlined"
-          sx={{ fontSize: { xs: ".8rem", sm: ".9rem" }, 
-          '&:hover':{
-            color: 'primary.main'
-          } }}
+          sx={{
+            fontSize: { xs: ".8rem", sm: ".9rem" },
+            "&:hover": {
+              color: "primary.main",
+            },
+          }}
           component={Link}
-          to='/'
+          to="/"
         >
           HOME
         </Button>

@@ -1,3 +1,4 @@
+import { text } from "@fortawesome/fontawesome-svg-core";
 import {
   Box,
   Paper,
@@ -21,62 +22,71 @@ const VcInput = ({
   options,
   otherOption,
   setForm,
+  formErrors,
 }) => {
   const [other, setOther] = React.useState(true);
-  const [otherText, setOtherText] = React.useState('');
-  const [optionsCheck, setOptionsCheck] = React.useState({options:[], name: null, otherOptions:''});
+  const [otherText, setOtherText] = React.useState("");
+  const [optionsCheck, setOptionsCheck] = React.useState({
+    options: [],
+    name: null,
+    otherOptions: "",
+  });
 
   const onClickOther = (e) => {
     if (e.target.checked == true) {
       setOther(false);
     } else {
-      setOtherText(true);
+      setOther(true);
+      setOtherText("");
     }
   };
-  useEffect(()=>{
-    setForm(optionsCheck)
-    console.log(optionsCheck)
-  },[optionsCheck])
+  useEffect(() => {
+    setForm(optionsCheck);
+  }, [optionsCheck]);
 
-  useEffect(()=>{
-    function addOption(){
-      console.log(otherText)
-      setOptionsCheck(state=>{
-        let updated = {...state,
-          otherOptions:otherText,
-        }
-        
-        return updated
-      })
-    }
-    let refresh = setTimeout(()=>{
-      addOption()
-      console.log(optionsCheck)
-    },3000)
-    
-    return ()=>{
-      clearTimeout(refresh,()=>{
-        addOption()
-        console.log(optionsCheck)
-      })
-    }
+  useEffect(() => {
+    function addOption() {
+      setOptionsCheck((state) => {
+        let updated = { ...state, otherOptions: otherText };
 
-  },[otherText])
+        return updated;
+      });
+    }
+    let refresh = setTimeout(() => {
+      addOption();
+    }, 500);
+
+    return () => {
+      clearTimeout(refresh, () => {
+        addOption();
+      });
+    };
+  }, [otherText]);
 
   const onTextHandler = (e) => {
-    // setOtherText({other: e.target.value, name: e.target.name});
-    setOtherText(e.target.value)
+    setOtherText({
+      value: e.target.value,
+      name: e.target.name,
+    });
+    setForm(otherText);
+  };
+
+  const otherOptionsChecker = (e) => {
     console.log(e.target.name);
   };
 
-  const onClickHandlerOptions = (e) => {
+  const onChangeHandlerOptions = (e) => {
     if (e.target.checked) {
-      setOptionsCheck((state) => ({options:[...state.options,e.target.value],name:e.target.name}));
+      setOptionsCheck((state) => ({
+        options: [...state.options, e.target.value],
+        name: e.target.name,
+        otherOptions: "",
+      }));
     } else {
       setOptionsCheck((state) => {
         let arr = [];
-        arr = state.filter((opt) => opt !== e.target.value);
-        return {options:arr, name:e.target.name};
+        arr = Array(state).filter((opt) => opt !== e.target.value);
+        return { options: arr, name: e.target.name, otherOptions: "" };
       });
     }
   };
@@ -120,78 +130,93 @@ const VcInput = ({
               {subtitle}
             </Typography>
           )}
-
-          {options ? (
-            <FormControl>
-              <RadioGroup aria-labelledby="radio-buttons-group-label">
-                {console.log(formValue)}
-                {options.map((el) => (
-                  <FormControlLabel
-                    value={el}
-                    onChange={onClickHandlerOptions}
-                    control={<Checkbox />}
-                    label={
-                      <Typography
-                        sx={{
-                          textTransform: "capitalize",
-                          fontSize: { xs: ".9rem", sm: "1.2rem" },
-                        }}
-                      >
-                        {el}
-                      </Typography>
-                    }
-                    name={value}
-                  />
-                ))}
+          <div>
+            {options ? (
+              <FormControl>
+                <RadioGroup
+                  aria-labelledby="radio-buttons-group-label"
+                  onChange={otherOptionsChecker}
+                >
+                  {/* For checkbox options */}
+                  {options.map((el) => (
+                    <FormControlLabel
+                      value={el}
+                      onChange={onChangeHandlerOptions}
+                      control={<Checkbox />}
+                      label={
+                        <Typography
+                          sx={{
+                            textTransform: "capitalize",
+                            fontSize: { xs: ".9rem", sm: "1.2rem" },
+                          }}
+                        >
+                          {el}
+                        </Typography>
+                      }
+                      name={value}
+                    />
+                  ))}
+                  {/* for checkbox button for Other values */}
+                  {otherOption ? (
+                    <FormControlLabel
+                      value=""
+                      control={<Checkbox />}
+                      label={
+                        <Typography
+                          sx={{
+                            textTransform: "capitalize",
+                            fontSize: { xs: ".9rem", sm: "1.2rem" },
+                          }}
+                        >
+                          Other
+                        </Typography>
+                      }
+                      onChange={onClickOther}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {/* For textfield provided other option is selected */}
+                </RadioGroup>
                 {otherOption ? (
-                  <FormControlLabel
-                    value=""
-                    control={<Checkbox />}
-                    label={
-                      <Typography
-                        sx={{
-                          textTransform: "capitalize",
-                          fontSize: { xs: ".9rem", sm: "1.2rem" },
-                        }}
-                      >
-                        Other
-                      </Typography>
-                    }
-                    onChange={onClickOther}
+                  <TextField
+                    sx={{
+                      width: { xs: "100%" },
+                    }}
+                    id="outlined-textarea"
+                    disabled={other}
+                    label="Your Answer"
+                    name={value}
+                    value={otherText?.value || ""}
+                    onChange={onTextHandler}
                   />
                 ) : (
                   ""
                 )}
-              </RadioGroup>
-              {otherOption ? (
-                <TextField
-                  sx={{
-                    width: { xs: "100%" },
-                  }}
-                  id="outlined-textarea"
-                  disabled={other}
-                  label="Your Answer"
-                  name={value}
-                  value={otherText}
-                  onChange={onTextHandler}
-                />
-              ) : (
-                ""
-              )}
-            </FormControl>
-          ) : (
-            <TextField
-              sx={{
-                width: { xs: "100%" },
+              </FormControl>
+            ) : (
+              <TextField
+                sx={{
+                  width: { xs: "100%" },
+                }}
+                id="outlined-textarea"
+                type={type}
+                label="Your Answer"
+                name={value}
+                value={formValue}
+                onChange={onClickHandler}
+              />
+            )}
+            <p
+              style={{
+                color: "red",
+                fontSize: "1rem",
+                marginTop: "1rem",
               }}
-              id="outlined-textarea"
-              type={type}
-              label="Your Answer"
-              name={value}
-              value={formValue}
-              onChange={onClickHandler}
-            />
-          )}
+            >
+              {formErrors[value]}
+            </p>
+          </div>
         </Box>
       </Paper>
     </>

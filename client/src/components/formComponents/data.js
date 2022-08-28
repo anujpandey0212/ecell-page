@@ -10,11 +10,11 @@ const startUpFields = {
     title: "Location",
   },
   founderName: {
-    title: "Name of Founder/Representative of Start-up",
+    title: "Name of Founder/Representative of Start-up*",
     subtitle: "Enter the name of any one person from your Startup",
   },
   email: {
-    title: "Email ID",
+    title: "Email ID*",
     subtitle: "E-mail ID of the person mentioned above.",
     type: "email",
   },
@@ -23,7 +23,7 @@ const startUpFields = {
     type: "number",
   },
   startUpPhase: {
-    title: "Start-up Phase",
+    title: "Start-up Phase*",
     options: [
       "Currently in ideation",
       "Has been ideated thoroughly",
@@ -41,7 +41,7 @@ const startUpFields = {
       "Will you be interested in hiring students of IIT Hyderabad for internsip/placements.",
   },
   help: {
-    title: "What kind of help do you expect from E-cell IIT Hyderabad?",
+    title: "What kind of help do you expect from E-cell IIT Hyderabad?*",
   },
   links: {
     title: "Website / LinkedIn / Social Media links",
@@ -60,13 +60,13 @@ const VcFields = {
     type: "number",
   },
   email: {
-    title: "Email ID",
+    title: "Email ID*",
     subtitle: "E-mail ID of the person mentioned above.",
     type: "email",
   },
   purpose: {
     title:
-      "Please Select The Purpose Of Connecting With IIT Hyderabad Startups",
+      "Please Select The Purpose Of Connecting With IIT Hyderabad Startups*",
     subtitle:
       "Do mark all the relevant fields. If you have any other collaborative idea in mind, then please the other section.",
     options: ["Investment", , "Advisory", "Strategic Partnership"],
@@ -74,7 +74,7 @@ const VcFields = {
   },
   stage: {
     title:
-      "Please mark the startup stage you would be interested in connecting with",
+      "Please mark the startup stage you would be interested in connecting with*",
     subtitle: "Do mark all the relevant filed.",
     options: [
       "Idea stage",
@@ -87,7 +87,7 @@ const VcFields = {
   },
   domain: {
     title:
-      "Please mention the domain of a startup you would be interested in connecting with",
+      "Please mention the domain of a startup you would be interested in connecting with*",
     subtitle:
       "Please mark as many fields as possible. Add the missing domains in the other section to cover your interests",
     options: [
