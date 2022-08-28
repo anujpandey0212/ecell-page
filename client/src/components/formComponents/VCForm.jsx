@@ -40,7 +40,6 @@ const Form = () => {
       update[name] = optionObject;
       return update;
     });
-    console.log(formValues);
   };
   const setTextInForm = (text, name) => {
     setFormValues((state) => ({
@@ -61,9 +60,8 @@ const Form = () => {
     };
   };
   React.useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit === true) {
-      console.log(formValues);
+      setOpen(true);
     }
   }, [formErrors]);
 
@@ -71,18 +69,22 @@ const Form = () => {
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.email) {
-      errors.email = required;
-    } else if (!regex.test(values.email)) {
+    if (!regex.test(values.email)) {
       errors.email = "Not a valid Email format";
     }
-    if (!values.purpose) {
+    if (
+      values["purpose"].options.length === 0 &&
+      values["purpose"].otherOptions === undefined
+    ) {
       errors.purpose = required;
     }
-    if (!values.stage) {
+    if (values["stage"].options.length === 0) {
       errors.stage = required;
     }
-    if (!values.domain) {
+    if (
+      values["domain"].options.length === 0 &&
+      values["domain"].otherOptions === undefined
+    ) {
       errors.domain = required;
     }
     return errors;
@@ -111,7 +113,7 @@ const Form = () => {
               <Header styles={styles} />
               {Object.keys(VcFields).map((field, index) => (
                 <VcInput
-                  key={[field, index]}
+                  key={[index, index]}
                   value={field}
                   title={VcFields[field].title}
                   formValue={formValues[field]}

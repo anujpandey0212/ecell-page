@@ -95,7 +95,6 @@ const VcInput = ({
   }, [otherText]);
 
   const onChangeHandlerOptions = (e) => {
-    console.log(e.target.value);
     if (e.target.checked) {
       setOptionsCheck((state) => ({
         options: [...state.options, e.target.value],
@@ -103,9 +102,6 @@ const VcInput = ({
         otherOptions: otherText?.value,
       }));
     } else {
-      console.log("Need to redo this");
-      console.log(e.target.name);
-      console.log(optionsCheck);
       setOptionsCheck((state) => {
         let update = { ...state };
         let newOptions = update?.options.filter((el) => el !== e.target.value);
@@ -161,6 +157,7 @@ const VcInput = ({
                   {/* For checkbox options */}
                   {options.map((el) => (
                     <FormControlLabel
+                      key={el}
                       value={el}
                       onChange={onChangeHandlerOptions}
                       control={<Checkbox />}
@@ -232,6 +229,7 @@ const VcInput = ({
                 name={value}
                 value={text}
                 onChange={onTextChangeHandler}
+                error={Boolean(formErrors[value])}
               />
             )}
             <p

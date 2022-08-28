@@ -41,7 +41,8 @@ const Form = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     function submitForm() {
-      console.log(formValues);
+      // For checking form Values for Start up
+      // console.log(formValues);
       setFormErrors(validate(formValues));
       setIsSubmit(true);
     }
@@ -52,7 +53,6 @@ const Form = () => {
     };
   };
   React.useEffect(() => {
-    console.log(formErrors);
     if (Object.keys(formErrors).length === 0 && isSubmit === true) {
       setOpen(true);
     }
