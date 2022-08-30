@@ -47,7 +47,7 @@ const startUpFields = {
     title: "Website / LinkedIn / Social Media links",
   },
   hear: {
-    title: "How did you ear about this event?",
+    title: "How did you hear about this event?",
   },
 };
 

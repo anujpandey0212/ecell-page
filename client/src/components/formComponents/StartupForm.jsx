@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import SimpleInput from "./StartUpInput";
 import DisplayModal from "./DisplayModal";
 import { startUpFields } from "./data";
+import LoadingSpinner from "./LoadingSpinner";
 
 const defaultvalues = {
   startUpName: "",
@@ -20,11 +21,56 @@ const defaultvalues = {
   links: "",
   hear: "",
 };
+
 const Form = () => {
   const [formValues, setFormValues] = React.useState(defaultvalues);
-  const [open, setOpen] = React.useState(false);
+  const [isValid, setIsValid] = React.useState(false);
   const [formErrors, setFormErrors] = React.useState({});
   const [isSubmit, setIsSubmit] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isSent, setIsSent] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isSubmit && isValid) {
+      let values = { ...formValues };
+
+      values.contact = parseInt(values.contact.trim(), 10);
+      const schema = {
+        Name: values.startUpName.trim(),
+        Sector: values.industryName.trim(),
+        Location: values.location,
+        Representative_name: values.founderName.trim(),
+        // Member_name: values?.member.trim(),
+        Email_member: values.email.trim(),
+        Contact_number: values.contact,
+        Phase: values.startUpPhase.trim(),
+        Description: values.discription.trim(),
+        Hiring_interest: values.hire.trim(),
+        Help_expected: values.help.trim(),
+        Links: values.links.trim(),
+        Hear_how: values.hear.trim(),
+      };
+      (async () => {
+        const res = await fetch("http://localhost:3001/api/startup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(schema),
+        });
+        const msg = await res.json();
+        setIsLoading(false);
+        if (msg.Error) {
+          console.log("Something went wrong");
+          setIsSent(false);
+        }
+        if (msg?.Message === "Sent") {
+          console.log("Success!");
+          setIsSent(true);
+        }
+      })();
+    }
+  }, [isSubmit, isValid, isLoading]);
 
   const setForm = (input) => {
     if (input) {
@@ -38,25 +84,28 @@ const Form = () => {
       [name]: value,
     });
   };
+
   const submitHandler = (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setIsSubmit(true);
     function submitForm() {
-      // For checking form Values for Start up
-      // console.log(formValues);
       setFormErrors(validate(formValues));
-      setIsSubmit(true);
     }
 
     let timeout = setTimeout(submitForm, 600);
-    return () => {
-      clearTimeout(timeout, 600);
-    };
   };
+
   React.useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit === true) {
-      setOpen(true);
+    if (Object.keys(formErrors).length === 0) {
+      setIsValid(true);
+      setIsSubmit(true);
+    } else {
+      setIsLoading(false);
+      setIsValid(false);
     }
   }, [formErrors]);
+
   const required = "Required*";
 
   const validate = (values) => {
@@ -124,6 +173,7 @@ const Form = () => {
                 />
               ))}
               <Button
+                loading
                 variant="contained"
                 type="submit"
                 sx={{
@@ -137,12 +187,12 @@ const Form = () => {
                   },
                 }}
               >
-                Submit
+                {isLoading ? <LoadingSpinner /> : "Submit"}
               </Button>
             </Box>
           </form>
         </Container>
-        <DisplayModal open={open} />
+        <DisplayModal open={isSent} />
       </Box>
     </>
   );

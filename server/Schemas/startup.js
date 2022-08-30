@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 
 const startupSchema = new mongoose.Schema({
-  Name: { type: String, required: true },
-  Sector: { type: String, required: true },
+  Name: { type: String },
+  Sector: { type: String, required: false },
   Location: String,
   Representative_name: { type: String, required: true },
-  Member_name: { type: String, required: true },
+  // Member_name: { type: String, required: true },
   Email_member: { type: String, required: true },
-  Contact_number: { type: String, required: true },
-  Phase: String,
+  Contact_number: { type: String, required: false },
+  Phase: { type: String, required: true },
   Description: String,
-  Hiring_interest: { type: Boolean, required: true },
-  Help_expected: String,
-  Links: {
-    Website: { type: String, required: true },
-    Linkedin: String,
-    Social_Media: [{ type: String }],
-  },
+  Hiring_interest: String,
+  Help_expected: { type: String, requiured: true },
+  Links: String,
   Hear_how: String,
 });
 
