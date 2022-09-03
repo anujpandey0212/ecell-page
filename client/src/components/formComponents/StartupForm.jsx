@@ -50,7 +50,7 @@ const Form = () => {
         Links: values.links.trim(),
         Hear_how: values.hear.trim(),
       };
-      (async () => {
+      const postData = async () => {
         const res = await fetch("http://localhost:3001/api/startup", {
           method: "POST",
           headers: {
@@ -68,8 +68,12 @@ const Form = () => {
           console.log("Success!");
           setIsSent(true);
         }
-      })();
+      };
+
+      postData();
     }
+
+    return () => {};
   }, [isSubmit, isValid, isLoading]);
 
   const setForm = (input) => {
@@ -93,7 +97,7 @@ const Form = () => {
       setFormErrors(validate(formValues));
     }
 
-    let timeout = setTimeout(submitForm, 600);
+    setTimeout(submitForm, 600);
   };
 
   React.useEffect(() => {
@@ -127,6 +131,7 @@ const Form = () => {
     }
     return errors;
   };
+
   return (
     <>
       <Navbar />

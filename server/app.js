@@ -1,4 +1,6 @@
 const express = require("express");
+require("dotenv").config();
+
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -26,16 +28,29 @@ const createVcEntry = async (data) => {
   await node.save();
 };
 
+const getEntry = async (type) => {
+  switch (type) {
+    case "startup":
+      break;
+    case "vs":
+      break;
+    default:
+      res.json({ Error: "Not valid datatype" });
+  }
+};
+
 //starts up a mongodb document with startupfair as the name
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/startupfair");
+  await mongoose.connect(
+    "mongodb+srv://siddarth:snt515%23Q@ecell-startupfair.wrlqtlq.mongodb.net/startupfair"
+  );
 }
 
 main().catch((err) => console.log(err));
 
 //middlewaree to parse req.body as json
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.post(
   "/api/startup",
@@ -63,8 +78,24 @@ app.post(
   }
 );
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Test!!" });
+app.get("/api/data", (req, res) => {
+  let query = req.params.query;
+  startup.find(
+    {
+      request: query,
+    },
+    (err, result) => {
+      if (err) {
+        res.send({ err });
+        throw err;
+      }
+      if (result) {
+        res.json({ result });
+      } else {
+        res.json({ Error: "No data" });
+      }
+    }
+  );
 });
 
 app.post(
