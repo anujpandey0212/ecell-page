@@ -1,5 +1,18 @@
 const express = require("express");
+const { auth, requiresAuth } = require("express-openid-connect");
 require("dotenv").config();
+
+const ROLE = {
+  ADMIN: "admin ",
+};
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET,
+  baseURL: process.env.BASE_URL,
+  clientID: process.env.CLIENT_ID,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
+};
 
 const app = express();
 const mongoose = require("mongoose");
@@ -27,15 +40,24 @@ const createVcEntry = async (data) => {
   const node = vc(data);
   await node.save();
 };
-
-const getEntry = async (type) => {
-  switch (type) {
-    case "startup":
-      break;
-    case "vs":
-      break;
-    default:
-      res.json({ Error: "Not valid datatype" });
+//This returns the data
+const returnData = async (type) => {
+  let data;
+  if (type === "startup") {
+    try {
+      data = await startup.find({});
+      return data;
+    } catch (err) {
+      return err;
+    }
+  }
+  if (type === "vc") {
+    try {
+      data = await vc.find({});
+      return data;
+    } catch (err) {
+      return err;
+    }
   }
 };
 
@@ -51,6 +73,7 @@ main().catch((err) => console.log(err));
 //middlewaree to parse req.body as json
 app.use(cors());
 app.use(express.json());
+app.use(auth(config));
 
 app.post(
   "/api/startup",
@@ -78,24 +101,24 @@ app.post(
   }
 );
 
-app.get("/api/data", (req, res) => {
-  let query = req.params.query;
-  startup.find(
-    {
-      request: query,
-    },
-    (err, result) => {
-      if (err) {
-        res.send({ err });
-        throw err;
-      }
-      if (result) {
-        res.json({ result });
-      } else {
-        res.json({ Error: "No data" });
-      }
-    }
-  );
+//To see the data entries
+app.post("/api/data", async (req, res) => {
+  console.log(req.body);
+  const type = req.body.type;
+  const auth = req.body.auth;
+
+  if (auth === true) {
+    let data;
+    data = await returnData(type);
+    console.log(data);
+    res.json(data);
+  } else {
+    res.send("Not Authorized");
+  }
+});
+
+app.get("/api/data", async (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? "  in" : "logged out");
 });
 
 app.post(

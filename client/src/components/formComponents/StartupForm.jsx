@@ -72,9 +72,7 @@ const Form = () => {
 
       postData();
     }
-
-    return () => {};
-  }, [isSubmit, isValid, isLoading]);
+  }, [isSubmit, isValid]);
 
   const setForm = (input) => {
     if (input) {

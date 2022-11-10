@@ -6,7 +6,6 @@ import InformationSection from "./Information-section";
 import lineRocket from "../assets/line-rocket.png";
 import lineMen from "../assets/businessmen.png";
 import TakePart from "./Take-part-section";
-import Carousel from "./Carousel/Carousel";
 import Footer from "./Footer/Footer";
 import { useRef } from "react";
 
@@ -74,7 +73,7 @@ const Homepage = () => {
         ref={ref_investor_section}
       />
       <TakePart ref={ref_take_part_section} />
-      <Carousel ref={ref_carousel_section} />
+
       <Footer ref={ref_footer_section} />
     </>
   );

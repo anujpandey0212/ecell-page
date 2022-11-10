@@ -39,8 +39,7 @@ export default function LandingPpage() {
         container
         sx={{
           height: "100vh",
-          background:
-            "radial-gradient(50% 50% at 50% 60%, #181743 0%, #340C64 100%);",
+          background: "black",
           pt: matcheslg ? 3 : matchesmd ? "6rem" : matchessm && "6rem",
         }}
       >
