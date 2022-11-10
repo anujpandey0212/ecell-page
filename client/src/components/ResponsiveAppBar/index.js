@@ -46,23 +46,13 @@ const ResponsiveAppBar = (props) => {
           <Box
             component="img"
             sx={{
-              height: "7rem",
-              display: { md: "block", xs: "none" },
-              pt: "1rem",
-            }}
-            alt="Logo"
-            src={Logo}
-          />
-          <Box
-            component="img"
-            sx={{
               height: "3rem",
               display: { md: "block", xs: "none" },
               pt: "1rem",
-              pl: 2,
+              pl: "2rem",
             }}
-            alt="ECELL IIT Hyderabad"
-            src={LogoFont}
+            alt="Logo"
+            src={Logo}
           />
 
           {/**Menu for smaller displays */}
@@ -121,9 +111,9 @@ const ResponsiveAppBar = (props) => {
           <Box
             component="img"
             sx={{
-              height: "5rem",
+              height: "3rem",
               display: { md: "none", xs: "block" },
-              pt: "1rem",
+              pt: "0.5rem",
             }}
             src={Logo}
           />
